@@ -2,28 +2,28 @@
 function navBarAnimation() {
   const navbar = document.getElementById("ul");
   const liitems = navbar.querySelectorAll(".header ul li");
-  const sections = document.querySelectorAll("section");
-
-  console.log(liitems);
+  const sections = document.querySelectorAll("#imgs, #about");
 
   window.addEventListener("scroll", () => {
     let current = "";
     sections.forEach(element => {
-      if (pageYOffset >= element.offsetTop) {
-        current = element.getAttribute("id");
-      }
-    });
-
-    liitems.forEach(element => {
-      element.classList.remove("active");
-      if (element.classList.contains(current)) {
+      if (pageYOffset >= element.offsetTop - 300 && 
+          pageYOffset <= element.offsetTop + element.clientHeight - 300) {
         element.classList.add("active");
+        liitems.forEach(liElement => {
+          if (element.classList.contains("active")) {
+            if (liElement.classList.contains(element.id)) {
+              liElement.classList.add("active");
+            } else {
+              liElement.classList.remove("active");
+            }
+          }
+        });
+      } else {
+        element.classList.remove("active");
       }
     });
-    
   });
-
-
 }
 
 function picAnimation() {
